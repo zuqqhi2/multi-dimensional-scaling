@@ -1,12 +1,13 @@
 class Point2D
-    constructor: (x, y, r, vx, vy, label, canvas, context) ->
+    constructor: (x, y, r, vx, vy, label, wnd_width, wnd_height, context) ->
         @x = x
         @y = y
         @r = r
         @vx = vx
         @vy = vy
         @label = label
-        @canvas = canvas
+        @wnd_width = wnd_width
+        @wnd_height = wnd_height
         @context = context
 
     update_position: ->
@@ -18,17 +19,17 @@ class Point2D
             @x = @r
             @vx *= -1.0
 
-        if @x + @r > @canvas.width
-            @x = @canvas.width - @r
-            @vx *= -1
+        if @x + @r > @wnd_width
+            @x = @wnd_width - @r
+            @vx *= -1.0
 
         if @y - @r < 0
             @y = @r
-            @vy *= -1
+            @vy *= -1.0
 
-        if @y + @r > @canvas.height
-            @y = @canvas.height - @r
-            @vy *= -1
+        if @y + @r > @wnd_height
+            @y = @wnd_height - @r
+            @vy *= -1.0
         
     draw: ->
         @context.beginPath()

@@ -3,14 +3,15 @@
   var Point2D, main;
 
   Point2D = (function() {
-    function Point2D(x, y, r, vx, vy, label, canvas, context) {
+    function Point2D(x, y, r, vx, vy, label, wnd_width, wnd_height, context) {
       this.x = x;
       this.y = y;
       this.r = r;
       this.vx = vx;
       this.vy = vy;
       this.label = label;
-      this.canvas = canvas;
+      this.wnd_width = wnd_width;
+      this.wnd_height = wnd_height;
       this.context = context;
     }
 
@@ -24,16 +25,16 @@
         this.x = this.r;
         this.vx *= -1.0;
       }
-      if (this.x + this.r > this.canvas.width) {
-        this.x = this.canvas.width - this.r;
+      if (this.x + this.r > this.wnd_width) {
+        this.x = this.wnd_width - this.r;
         this.vx *= -1;
       }
       if (this.y - this.r < 0) {
         this.y = this.r;
         this.vy *= -1;
       }
-      if (this.y + this.r > this.canvas.height) {
-        this.y = this.canvas.height - this.r;
+      if (this.y + this.r > this.wnd_height) {
+        this.y = this.wnd_height - this.r;
         return this.vy *= -1;
       }
     };
@@ -71,7 +72,7 @@
       y = canvas.height / 2 + Math.floor(Math.random() * 200) - 100;
       vx = Math.random() * 5.0 - 2.5;
       vy = Math.random() * 5.0 - 2.5;
-      points.push(new Point2D(x, y, 10, vx, vy, labels[i], canvas, context));
+      points.push(new Point2D(x, y, 10, vx, vy, labels[i], canvas.width, canvas.height, context));
       points[i].draw();
     }
     mainloop = function() {

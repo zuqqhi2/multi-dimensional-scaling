@@ -13,7 +13,7 @@ main = ()->
         vx = Math.random() * 5.0 - 2.5
         vy = Math.random() * 5.0 - 2.5
 
-        points.push new Point2D(x, y, 10, vx, vy, labels[i], canvas, context)
+        points.push new Point2D(x, y, 10, vx, vy, labels[i], canvas.width, canvas.height, context)
         points[i].draw()
 
     mainloop = ()->
