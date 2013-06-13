@@ -27,15 +27,15 @@
       }
       if (this.x + this.r > this.wnd_width) {
         this.x = this.wnd_width - this.r;
-        this.vx *= -1;
+        this.vx *= -1.0;
       }
       if (this.y - this.r < 0) {
         this.y = this.r;
-        this.vy *= -1;
+        this.vy *= -1.0;
       }
       if (this.y + this.r > this.wnd_height) {
         this.y = this.wnd_height - this.r;
-        return this.vy *= -1;
+        return this.vy *= -1.0;
       }
     };
 
@@ -61,18 +61,22 @@
 
 
   main = function() {
-    var canvas, context, i, labels, mainloop, num_points, points, vx, vy, x, y, _i;
+    var canvas, context, i, key, keys, labels, mainloop, num_points, points, vx, vy, x, y, _i;
     canvas = document.getElementById('canvas');
     context = canvas.getContext('2d');
-    num_points = 9;
-    labels = ["abc", "bcd", "cde", "def", "efg", "fgh", "ghi", "hij", "ijk", "jkl"];
+    keys = [];
+    for (key in blog_data) {
+      keys.push(key);
+    }
+    num_points = keys.length;
+    labels = keys;
     points = [];
     for (i = _i = 0; 0 <= num_points ? _i <= num_points : _i >= num_points; i = 0 <= num_points ? ++_i : --_i) {
       x = canvas.width / 2 + Math.floor(Math.random() * 200) - 100;
       y = canvas.height / 2 + Math.floor(Math.random() * 200) - 100;
       vx = Math.random() * 5.0 - 2.5;
       vy = Math.random() * 5.0 - 2.5;
-      points.push(new Point2D(x, y, 10, vx, vy, labels[i], canvas.width, canvas.height, context));
+      points.push(new Point2D(x, y, 5, vx, vy, labels[i], canvas.width, canvas.height, context));
       points[i].draw();
     }
     mainloop = function() {

@@ -4,8 +4,12 @@ main = ()->
     canvas = document.getElementById('canvas')
     context = canvas.getContext('2d')
 
-    num_points = 9
-    labels = ["abc", "bcd", "cde", "def", "efg", "fgh", "ghi", "hij", "ijk", "jkl"]
+    keys = []
+    for key of blog_data
+        keys.push(key)
+
+    num_points = keys.length
+    labels = keys
     points = []
     for i in [0..num_points]
         x = canvas.width /2 + Math.floor(Math.random() * 200) - 100
@@ -13,7 +17,7 @@ main = ()->
         vx = Math.random() * 5.0 - 2.5
         vy = Math.random() * 5.0 - 2.5
 
-        points.push new Point2D(x, y, 10, vx, vy, labels[i], canvas.width, canvas.height, context)
+        points.push new Point2D(x, y, 5, vx, vy, labels[i], canvas.width, canvas.height, context)
         points[i].draw()
 
     mainloop = ()->
