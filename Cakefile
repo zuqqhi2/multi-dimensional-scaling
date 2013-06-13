@@ -10,6 +10,8 @@ coffee = (args) ->
 task 'build', "build source files in './src'  to '.'", ->
     target = [
         'src/point2d.coffee',
+        'src/datapoint.coffee',
+        'src/pointcloud.coffee',
         'src/main.coffee'
     ]
     coffee ['-j','tmp.js','-o','build','-c'].concat target

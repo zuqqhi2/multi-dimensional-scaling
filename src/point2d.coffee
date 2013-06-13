@@ -10,31 +10,33 @@ class Point2D
         @wnd_height = wnd_height
         @context = context
 
+    #
+    # Update poistion with velocity
+    #
     update_position: ->
         @x += @vx
         @y += @vy
 
-    reflect: ->
-        if @x - @r < 0
-            @x = @r
-            @vx *= -1.0
+    #
+    # Return x and y with array style
+    #
+    get_data: ->
+        return [@x, @y]
 
-        if @x + @r > @wnd_width
-            @x = @wnd_width - @r
-            @vx *= -1.0
+    #
+    # Calculate distance between points
+    # @param p : Point2D class's instance
+    #
+    calc_distance: (p)->
+        return Math.pow(@x - p.x, 2)+ Math.pow(@y - p.y, 2)
 
-        if @y - @r < 0
-            @y = @r
-            @vy *= -1.0
-
-        if @y + @r > @wnd_height
-            @y = @wnd_height - @r
-            @vy *= -1.0
-        
+    #
+    # Draw point and label to canvas
+    #
     draw: ->
         @context.beginPath()
         @context.strokeStyle = '#00F'
-        @context.fillStyle = '#00F'
+        @context.fillStyle = 'green'
         @context.arc(@x, @y, @r, 0, Math.PI * 2, false)
         @context.fill()
         @context.stroke()
@@ -42,8 +44,23 @@ class Point2D
 
         @context.beginPath()
         @context.font = "18px 'MS Pゴシック'"
-        @context.fillStyle = "blue"
-        @context.fillText(@label, @x, @y-@r)
+        @context.fillStyle = "red"
+        @context.fillText(@label, @x, @y-(@r*2))
         @context.restore()
+
+    #
+    # Draw point and label with scaling
+    #
+    draw_with_scaling: (max,min) ->
+        prevX = @x
+        prevY = @y
+
+        @x = (@x - min[0]) / (max[0] - min[0]) * @wnd_width
+        @y = (@y - min[1]) / (max[1] - min[1]) * @wnd_height
+
+        @draw()
+
+        @x = prevX
+        @y = prevY
 
 exports.Point2D = Point2D

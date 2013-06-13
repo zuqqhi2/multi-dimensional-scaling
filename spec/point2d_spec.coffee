@@ -6,15 +6,13 @@ describe "Point2D", ->
     p3 = undefined
     p4 = undefined
     p5 = undefined
-    p6 = undefined
     
     beforeEach ->
         p1 = new Point2D(0, 0, 0, 0, 0, "", 0, 0, undefined)
         p2 = new Point2D(100, 200, 30, 2.0, 2.0, "test", 640, 480, undefined)
-        p3 = new Point2D(5, 200, 30, 2.0, 2.0, "test", 640, 480, undefined)
-        p4 = new Point2D(630, 200, 30, 2.0, 2.0, "test", 640, 480, undefined)
-        p5 = new Point2D(100, 10, 30, 2.0, 2.0, "test", 640, 480, undefined)
-        p6 = new Point2D(100, 470, 30, 2.0, 2.0, "test", 640, 480, undefined)
+        p3 = new Point2D(100, 200, 30, 2.0, 2.0, "test", 640, 480, undefined)
+        p4 = new Point2D(1, 2, 30, 2.0, 2.0, "test", 640, 480, undefined)
+        p5 = new Point2D(2, 4, 30, 2.0, 2.0, "test", 640, 480, undefined)
 
     it "should be x and y axis value are 0", ->
         expect(p1.x).toEqual 0
@@ -41,22 +39,10 @@ describe "Point2D", ->
         expect(p2.x).toEqual 102.0
         expect(p2.y).toEqual 202.0
 
-    it "should reflect with left side", ->
-        p3.reflect()
-        expect(p3.x).toEqual 30
-        expect(p3.vx).toEqual -2.0
-
-    it "should reflect with right side", ->
-        p4.reflect()
-        expect(p4.x).toEqual 610
-        expect(p4.vx).toEqual -2.0
+    it "should get x and y value with array style", ->
+        data = p3.get_data()
+        expect(data[0]).toEqual 100.0
+        expect(data[1]).toEqual 200.0
     
-    it "should reflect with left side", ->
-        p5.reflect()
-        expect(p5.y).toEqual 30
-        expect(p5.vy).toEqual -2.0
-    
-    it "should reflect with left side", ->
-        p6.reflect()
-        expect(p6.y).toEqual 450
-        expect(p6.vy).toEqual -2.0
+    it "should get 5 as distance", ->
+        expect(p4.calc_distance(p5)).toEqual 5
